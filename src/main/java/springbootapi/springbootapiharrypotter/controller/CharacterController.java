@@ -1,5 +1,6 @@
 package springbootapi.springbootapiharrypotter.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class CharacterController {
     }
 
     @PostMapping
-    public ResponseEntity<Character> createCharacter(@RequestBody Character character){
+    public ResponseEntity<Character> createCharacter(@RequestBody Character character) {
         Character savedCharacter = characterService.createCharacter(character);
         return new ResponseEntity<>(savedCharacter, HttpStatus.CREATED);
     }

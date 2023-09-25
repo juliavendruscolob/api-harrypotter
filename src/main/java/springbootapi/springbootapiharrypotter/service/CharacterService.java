@@ -1,5 +1,6 @@
 package springbootapi.springbootapiharrypotter.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import springbootapi.springbootapiharrypotter.entity.Character;
 
 import java.util.List;
