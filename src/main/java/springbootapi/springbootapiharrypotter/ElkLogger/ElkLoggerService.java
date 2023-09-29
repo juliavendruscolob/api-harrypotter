@@ -5,13 +5,15 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
-import reactor.core.Exceptions;
 import reactor.core.publisher.Mono;
 import springbootapi.springbootapiharrypotter.ElkConfiguration.ElkLoggerConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class ElkLoggerService {
+
+    private static Logger LOG = LoggerFactory.getLogger(ElkLoggerService.class);
 
     @Autowired
     private final WebClient webClient;
@@ -40,7 +42,7 @@ public class ElkLoggerService {
                     .bodyToMono(Void.class)
                     .block();
         } catch (Exception e) {
-            System.err.println("Error indexing document: " + e.getMessage());
+            LOG.error("Error indexing document: " + e.getMessage());
         }
         return Mono.empty();
     }

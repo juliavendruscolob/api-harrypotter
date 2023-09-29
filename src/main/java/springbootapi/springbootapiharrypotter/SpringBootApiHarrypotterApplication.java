@@ -21,5 +21,3 @@ import org.springframework.web.reactive.function.client.WebClient;
 		SpringApplication.run(SpringBootApiHarrypotterApplication.class, args);
 	}
 }
-
-
