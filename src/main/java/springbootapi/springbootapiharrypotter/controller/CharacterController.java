@@ -20,7 +20,7 @@ public class CharacterController {
     }
 
     @PostMapping
-    public ResponseEntity<Character> createCharacter(@RequestBody Character character) {
+    public ResponseEntity<Character> createCharacter(@RequestBody Character character) throws JsonProcessingException {
         Character savedCharacter = characterService.createCharacter(character);
         return new ResponseEntity<>(savedCharacter, HttpStatus.CREATED);
     }

@@ -1,5 +1,7 @@
 package springbootapi.springbootapiharrypotter.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springbootapi.springbootapiharrypotter.ElkLogger.ElkLoggerService;
@@ -9,6 +11,18 @@ import springbootapi.springbootapiharrypotter.entity.Character;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+class Payload {
+    public String endpoint;
+    public String method;
+    public Object data;
+
+    public Payload(String endpoint, String method, Object data) {
+        this.endpoint = endpoint;
+        this.method = method;
+        this.data = data;
+    }
+}
 
 @Service
 public class CharacterImplService implements CharacterService{
@@ -25,9 +39,12 @@ public class CharacterImplService implements CharacterService{
     }
 
     @Override
-    public Character createCharacter(Character character) {
+    public Character createCharacter(Character character) throws JsonProcessingException {
         Character createdCharacter = characterRepository.save(character);
-        elkLoggerService.ElkLogger(createdCharacter).subscribe();
+        Payload payload = new Payload("/character", "POST", createdCharacter);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(payload);
+        elkLoggerService.ElkLogger(payload).subscribe();
         return createdCharacter;
     }
 

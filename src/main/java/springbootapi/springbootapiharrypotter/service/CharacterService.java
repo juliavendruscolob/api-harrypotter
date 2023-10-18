@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CharacterService {
-    Character createCharacter(Character character);
+    Character createCharacter(Character character) throws JsonProcessingException;
 
     Character getCharacterById(UUID characterId);
 
